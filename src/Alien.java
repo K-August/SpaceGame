@@ -6,12 +6,14 @@ import javax.imageio.ImageIO;
 
 public class Alien implements Locatable
 {
-	private int speed;
+	private int x, y, s;
 	private Image image;
 
 	public Alien(int x, int y, int s)
 	{
-		//add code
+		this.x = x;
+		this.y = y;
+		this.s = s;
 
 		try
 		{
@@ -25,31 +27,39 @@ public class Alien implements Locatable
 
 	public void draw( Graphics window )
 	{
-   	window.drawImage(image, getX(), getY(),80,80,null);
+   	window.drawImage(image, getX(), getY(),40,40,null);
+	}
+	public void doMove()
+	{
+		while (this != null)
+		{
+			
+		}
 	}
 
 	@Override
 	public void setPos(int x, int y) {
-
+		this.x = x;
+		this.y = y;
 	}
 
 	@Override
 	public void setX(int x) {
-
+		this.x = x;
 	}
 
 	@Override
 	public void setY(int y) {
-
+		this.y = y;
 	}
 
 	@Override
 	public int getX() {
-		return 0;
+		return this.x;
 	}
 
 	@Override
 	public int getY() {
-		return 0;
+		return this.y;
 	}
 }

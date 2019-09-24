@@ -23,17 +23,48 @@ public abstract class MovingThing implements Locatable
 		switch (direction)
 		{
 			case "LEFT":
-				setX(getX()-getSpeed());
+				if (canMove(direction))
+					setX(getX() - getSpeed());
 				break;
 			case "RIGHT":
-				setX(getX() + getSpeed());
+				if (canMove(direction))
+					setX(getX() + getSpeed());
 				break;
 			case "UP":
-				setY(getY() + getSpeed());
+				if (canMove(direction))
+					setY(getY() - getSpeed());
 				break;
 			case "DOWN":
-				setY(getY() - getSpeed());
+				if (canMove(direction))
+					setY(getY() + getSpeed());
 				break;
 		}
+	}
+
+	private boolean canMove(String direction)
+	{
+		switch (direction)
+		{
+			case "LEFT":
+				if (getX() - getSpeed() < -20)
+					return false;
+				break;
+			case "RIGHT":
+				
+				if (getX() + getSpeed() > 725)
+					return false;
+				break;
+			case "UP":
+				
+				if (getY() - getSpeed() < -15)
+					return false;
+				break;
+			case "DOWN":
+				
+				if (getY() + getSpeed() > 500)
+					return false;
+				break;
+		}
+		return true;
 	}
 }

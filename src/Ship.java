@@ -9,11 +9,15 @@ public class Ship extends MovingThing
 	private int speed;
 	private Image image;
 
-	public Ship(int x, int y, int s)
+	private int x, y;
+
+	public Ship(int X, int Y, int s)
 	{
-		super(x, y);
+		super(X, Y);
 
 		speed = s;
+		x = X;
+		y = Y;
 
 		try
 		{
@@ -32,36 +36,37 @@ public class Ship extends MovingThing
 
 	@Override
 	public int getSpeed() {
-		return 0;
+		return speed;
 	}
 
 	public void draw(Graphics window)
 	{
-   		window.drawImage(image,getX(),getY(),80,80,null);
+   		window.drawImage(image, getX(), getY(), 80, 80, null);
 	}
 
 	@Override
 	public void setPos(int x, int y) {
-
+		this.x = x;
+		this.y = y;
 	}
 
 	@Override
 	public void setX(int x) {
-
+		this.x = x;
 	}
 
 	@Override
 	public void setY(int y) {
-
+		this.y = y;
 	}
 
 	@Override
 	public int getX() {
-		return 0;
+		return this.x;
 	}
 
 	@Override
 	public int getY() {
-		return 0;
+		return this.y;
 	}
 }

@@ -9,6 +9,7 @@ import static java.lang.Character.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -29,6 +30,8 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
     public OuterSpace(int WIDTH, int HEIGHT)
     {
+        Random random = new Random();
+
         setBackground(Color.black);
         
         keys = new boolean[5];
@@ -36,9 +39,9 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         height= HEIGHT;
         //STUDENTS  - initialize your state variables here
         //like ship, aliens, ammo , etc.
-        ship = new Ship(width, height, 3);
-        alienOne = new Alien((width / 4), (height / 4), 1);
-        alienTwo = new Alien((width / 4), (height / 4), 1);
+        ship = new Ship(width / 4, height / 4, 3);
+        alienOne = new Alien(random.nextInt(800), random.nextInt(100), 1);
+        alienTwo = new Alien(random.nextInt(800), random.nextInt(100), 1);
         
         this.addKeyListener(this);
 
@@ -81,9 +84,22 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
         
         //STUDENTS ADD CODE TO MAKE SHIP MOVE RIGHT, UP, DOWN
-	if (keys[0]) {
-            ship.move("LEFT");
-        }
+	if (keys[0])
+	{
+	    ship.move("LEFT");
+	}
+	if (keys[1])
+    {
+        ship.move("RIGHT");
+    }
+	if (keys[2])
+	{
+	    ship.move("UP");
+	}
+	if (keys[3])
+	{
+	    ship.move("DOWN");
+	}
 
 
 	//STUDENTS ADD CODE TO MAKE ALIENS MOVE
@@ -92,7 +108,9 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 	
         
         //STUDENTS ADD CODE TO DRAW STUFF  - use graphToBack as the Graphics parameter
-        
+        ship.draw(graphToBack);
+	    alienOne.draw(graphToBack);
+        alienTwo.draw(graphToBack);
 		
 		
         //STUDENTS ADD CODE for collision detection
