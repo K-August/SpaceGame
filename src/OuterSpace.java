@@ -22,6 +22,8 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
     private Alien alienTwo;
     private int width, height;
 
+    private ArrayList<Ammo> bullets;
+    private ArrayList<Alien> aliens;
     //STUDENTS - you will need to add Arraylist for Alien
    //STUDENTS - you will need to add Arraylist for Ammo
    
@@ -31,6 +33,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
     public OuterSpace(int WIDTH, int HEIGHT)
     {
         Random random = new Random();
+        bullets = new ArrayList<>();
 
         setBackground(Color.black);
         
@@ -40,8 +43,9 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         //STUDENTS  - initialize your state variables here
         //like ship, aliens, ammo , etc.
         ship = new Ship(width / 4, height / 4, 3);
-        alienOne = new Alien(random.nextInt(800), random.nextInt(100), 1);
-        alienTwo = new Alien(random.nextInt(800), random.nextInt(100), 1);
+
+        aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
+        aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
         
         this.addKeyListener(this);
 
@@ -64,6 +68,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
     public void paintComponent(Graphics window)
     {
+        int i = 0;
         //set up the double buffering to make the game animation nice and smooth
         Graphics2D twoDGraph = (Graphics2D) window;
 
@@ -77,10 +82,10 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         //we will draw all changes on the background image
         Graphics graphToBack = back.createGraphics();
 
-        graphToBack.setColor(Color.BLUE);
-        graphToBack.drawString("StarFighter ", 25, 50);
         graphToBack.setColor(Color.BLACK);
         graphToBack.fillRect(0, 0, width, height);
+        graphToBack.setColor(Color.BLUE);
+        graphToBack.drawString("StarFighter ", 25, 50);
 
         
         //STUDENTS ADD CODE TO MAKE SHIP MOVE RIGHT, UP, DOWN
@@ -100,6 +105,10 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 	{
 	    ship.move("DOWN");
 	}
+	if (keys[4])
+    {
+        bullets.add(new Ammo(ship.getX(), ship.getY(), ship.getSpeed() * 5));
+    }
 
 
 	//STUDENTS ADD CODE TO MAKE ALIENS MOVE
@@ -109,10 +118,24 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         
         //STUDENTS ADD CODE TO DRAW STUFF  - use graphToBack as the Graphics parameter
         ship.draw(graphToBack);
-	    alienOne.draw(graphToBack);
-        alienTwo.draw(graphToBack);
-		
-		
+
+	    for (Alien alien: aliens)
+        {
+            alien.doMove();
+            alien.draw(graphToBack);
+        }
+
+		for (Ammo bullet: bullets)
+        {
+            for (Alien alien: aliens)
+            {
+                int max = (alien.getX() + 40);
+                int min = alien.getX();
+            }
+            bullet.doMove();
+            bullet.draw(graphToBack);
+        }
+
         //STUDENTS ADD CODE for collision detection
 
 

@@ -4,6 +4,8 @@ import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
 
+import static java.lang.System.out;
+
 public class Ship extends MovingThing
 {
 	private int speed;
@@ -11,13 +13,13 @@ public class Ship extends MovingThing
 
 	private int x, y;
 
-	public Ship(int X, int Y, int s)
+	public Ship(int x, int y, int s)
 	{
-		super(X, Y);
+		super(x, y);
 
 		speed = s;
-		x = X;
-		y = Y;
+		this.x = x;
+		this.y = y;
 
 		try
 		{
@@ -25,13 +27,14 @@ public class Ship extends MovingThing
 		}
 		catch(Exception e)
 		{
-			System.out.println("Frick homie we got " + e.getMessage());
+			out.println("Frick homie we got " + e.getMessage());
 		}
 	}
 
 	@Override
-	public void setSpeed(int s) {
-
+	public void setSpeed(int s)
+	{
+		this.speed = s;
 	}
 
 	@Override
@@ -51,17 +54,20 @@ public class Ship extends MovingThing
 	}
 
 	@Override
-	public void setX(int x) {
+	public void setX(int x)
+	{
 		this.x = x;
 	}
 
 	@Override
-	public void setY(int y) {
+	public void setY(int y)
+	{
 		this.y = y;
 	}
 
 	@Override
-	public int getX() {
+	public int getX()
+	{
 		return this.x;
 	}
 
