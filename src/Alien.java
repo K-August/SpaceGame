@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 public class Alien implements Locatable
 {
-	private int x, y, s, hp;
+	private int x, y, s;
 	private Image image;
 
 	public Alien(int x, int y, int s)
@@ -14,7 +14,6 @@ public class Alien implements Locatable
 		this.x = x;
 		this.y = y;
 		this.s = s;
-		this.hp = 25;
 
 		try
 		{

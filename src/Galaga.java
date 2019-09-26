@@ -22,6 +22,9 @@ public class Galaga extends JFrame
 		setVisible(true);
 	}
 
+	public int getWidth() {return WIDTH;}
+	public int getHeight() {return HEIGHT;}
+
 	public static void main( String args[] )
 	{
 		Galaga run = new Galaga();

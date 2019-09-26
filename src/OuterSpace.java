@@ -34,6 +34,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
     {
         Random random = new Random();
         bullets = new ArrayList<>();
+        aliens = new ArrayList<>();
 
         setBackground(Color.black);
         
@@ -46,7 +47,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
         aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
         aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
-        
+
         this.addKeyListener(this);
 
         Timer timer = new Timer(1000 / 60, this);
@@ -118,7 +119,6 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         
         //STUDENTS ADD CODE TO DRAW STUFF  - use graphToBack as the Graphics parameter
         ship.draw(graphToBack);
-
 	    for (Alien alien: aliens)
         {
             alien.doMove();
@@ -127,10 +127,15 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
 		for (Ammo bullet: bullets)
         {
+            int x = bullet.getX();
+            int y = bullet.getY();
+
             for (Alien alien: aliens)
             {
-                int max = (alien.getX() + 40);
-                int min = alien.getX();
+                if (x <= (alien.getX() + 40) && x >= alien.getX() && y >= alien.getY() && y <= (alien.getY() + 40))
+                {
+                    aliens.remove(alien);
+                }
             }
             bullet.doMove();
             bullet.draw(graphToBack);
