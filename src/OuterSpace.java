@@ -22,6 +22,8 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
     private Alien alienTwo;
     private int width, height;
 
+    private Random random = new Random();
+
     private ArrayList<Ammo> bullets;
     private ArrayList<Alien> aliens;
     //STUDENTS - you will need to add Arraylist for Alien
@@ -32,7 +34,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
     public OuterSpace(int WIDTH, int HEIGHT)
     {
-        Random random = new Random();
+
         bullets = new ArrayList<>();
         aliens = new ArrayList<>();
 
@@ -119,7 +121,8 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         
         //STUDENTS ADD CODE TO DRAW STUFF  - use graphToBack as the Graphics parameter
         ship.draw(graphToBack);
-	    for (Alien alien: aliens)
+
+        for (Alien alien: aliens)
         {
             alien.doMove();
             alien.draw(graphToBack);
@@ -130,20 +133,20 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
             int x = bullet.getX();
             int y = bullet.getY();
 
-            for (Alien alien: aliens)
+            for (int j =0; j < aliens.size(); j++)
             {
-                if (x <= (alien.getX() + 40) && x >= alien.getX() && y >= alien.getY() && y <= (alien.getY() + 40))
+                Alien alien = aliens.get(j);
+                if (x <= (alien.getX() + 40) && x >= alien.getX() && y >= alien.getY() && y <= (alien.getY() + 40) || alien.getY() > 1000)
                 {
                     aliens.remove(alien);
                 }
+                if (aliens.size() < 5 && random.nextInt(100000) == 0) aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
             }
             bullet.doMove();
             bullet.draw(graphToBack);
         }
 
         //STUDENTS ADD CODE for collision detection
-
-
 
         twoDGraph.drawImage(back, null, 0, 0);
 

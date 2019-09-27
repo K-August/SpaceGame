@@ -3,18 +3,23 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
+import java.util.Timer;
 import javax.imageio.ImageIO;
 
 public class Ammo implements Locatable
 {
 	private Image image;
 	private int x, y, s;
+	private Timer timer;
+	private boolean _canShoot;
 
 	public Ammo(int x, int y, int s)
 	{
 		this.x = x;
 		this.y = y;
 		this.s = s;
+		this.timer = new Timer();
+		this._canShoot = true;
 
 		try
 		{
@@ -29,6 +34,17 @@ public class Ammo implements Locatable
 	public void draw( Graphics window )
 	{
 		window.drawImage(image, getX(), getY(), 15, 15, null);
+	}
+
+	private void onShoot()
+	{
+		this._canShoot = !this._canShoot;
+
+	}
+
+	public boolean canShoot()
+	{
+		return _canShoot;
 	}
 
 	public void doMove()
