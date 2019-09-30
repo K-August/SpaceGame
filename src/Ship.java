@@ -1,8 +1,12 @@
+import javafx.application.Platform;
+import javafx.scene.paint.Stop;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
+import java.util.TimerTask;
 
 import static java.lang.System.out;
 
@@ -12,6 +16,7 @@ public class Ship extends MovingThing
 	private Image image;
 
 	private int x, y;
+	private Stopwatch stopwatch;
 
 	public Ship(int x, int y, int s)
 	{
@@ -21,6 +26,8 @@ public class Ship extends MovingThing
 		this.x = x;
 		this.y = y;
 
+		this.stopwatch = new Stopwatch();
+
 		try
 		{
 			image = ImageIO.read(new File("ship.jpg"));
@@ -29,6 +36,22 @@ public class Ship extends MovingThing
 		{
 			out.println("Frick homie we got " + e.getMessage());
 		}
+	}
+
+	public boolean canShoot()
+	{
+		if (this.stopwatch.elapsedTime() > .75)
+		{
+			this.onShoot();
+			return true;
+		}
+
+		return false;
+	}
+
+	public void onShoot()
+	{
+		this.stopwatch.start();
 	}
 
 	@Override

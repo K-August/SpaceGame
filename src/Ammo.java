@@ -10,16 +10,12 @@ public class Ammo implements Locatable
 {
 	private Image image;
 	private int x, y, s;
-	private Timer timer;
-	private boolean _canShoot;
 
 	public Ammo(int x, int y, int s)
 	{
 		this.x = x;
 		this.y = y;
 		this.s = s;
-		this.timer = new Timer();
-		this._canShoot = true;
 
 		try
 		{
@@ -36,16 +32,6 @@ public class Ammo implements Locatable
 		window.drawImage(image, getX(), getY(), 15, 15, null);
 	}
 
-	private void onShoot()
-	{
-		this._canShoot = !this._canShoot;
-
-	}
-
-	public boolean canShoot()
-	{
-		return _canShoot;
-	}
 
 	public void doMove()
 	{
