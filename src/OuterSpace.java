@@ -66,23 +66,19 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
     public void paintComponent(Graphics window)
     {
         int i = 0;
-        //set up the double buffering to make the game animation nice and smooth
         Graphics2D twoDGraph = (Graphics2D) window;
 
-        //take a snap shop of the current screen and same it as an image
-        //that is the exact same width and height as the current screen
         if (back == null) {
             back = (BufferedImage) (createImage(getWidth(), getHeight()));
         }
 
-        //create a graphics reference to the back ground image
-        //we will draw all changes on the background image
         Graphics graphToBack = back.createGraphics();
 
         graphToBack.setColor(Color.BLACK);
         graphToBack.fillRect(0, 0, width, height);
         graphToBack.setColor(Color.BLUE);
         graphToBack.drawString("StarFighter ", 25, 50);
+
         if (aliens.size() == 0 && this.stopwatch == null)
         {
             this.stopwatch = new Stopwatch();
@@ -98,10 +94,16 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
 	if (keys[0])
 	{
+	    if (ship.getSpeed() > 0)
+	        ship.setSpeed(ship.getSpeed() * -1);
+
 	    ship.move("LEFT");
 	}
 	if (keys[1])
     {
+        if (ship.getSpeed() < 0)
+            ship.setSpeed(ship.getSpeed() * -1);
+
         ship.move("RIGHT");
     }
 	if (keys[2])
@@ -115,18 +117,20 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 	if (keys[4])
     {
         if (ship.canShoot())
-            bullets.add(new Ammo(ship.getX(), ship.getY(), ship.getSpeed() * 5));
+            bullets.add(new Ammo(ship.getX() + 25, ship.getY(), ship.getSpeed() * 5));
     }
         ship.draw(graphToBack);
 
         for (Alien alien: aliens)
         {
-            alien.doMove();
+            alien.move();
             alien.draw(graphToBack);
         }
 
-		for (Ammo bullet: bullets)
+		for (int index = 0; index < bullets.size(); index++)
         {
+            Ammo bullet = bullets.get(index);
+
             int x = bullet.getX();
             int y = bullet.getY();
 
@@ -135,6 +139,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
                 Alien alien = aliens.get(j);
                 if (x <= (alien.getX() + 40) && x >= alien.getX() && y >= alien.getY() && y <= (alien.getY() + 40) || alien.getY() > 1000)
                 {
+                    bullets.remove(bullet);
                     aliens.remove(alien);
                     if (aliens.size() < 5 && random.nextInt(2) == 0) aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
                 }
@@ -143,15 +148,12 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
             bullet.draw(graphToBack);
         }
 
-        //STUDENTS ADD CODE for collision detection
-
         twoDGraph.drawImage(back, null, 0, 0);
 
     }
 
     public void keyPressed(KeyEvent e)
     {
-        //NO TOUCHING - SERIOUSLY DONT CHANGE THIS CODE
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             keys[0] = true;
         }
@@ -172,7 +174,6 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
     public void keyReleased(KeyEvent e)
     {
-        //NO TOUCHING
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             keys[0] = false;
         }
@@ -193,16 +194,13 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
     public void keyTyped(KeyEvent e)
     {
-//NO TOUCHING
     }
 
     public void run()
     {
-        //NO TOUCHING
         try {
             while (true) {
                 repaint();
-                //Thread.currentThread().sleep(1);
             }
         } catch (Exception e) {
         }

@@ -38,7 +38,7 @@ public class Ammo implements Locatable
 		if (this.y + this.s < 0 || this.y + this.s > 600)
 			return;
 
-		this.y -= this.s;
+		this.y -= Math.abs(this.s);
 	}
 
 	@Override

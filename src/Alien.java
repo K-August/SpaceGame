@@ -4,13 +4,15 @@ import java.awt.Image;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-public class Alien implements Locatable
+public class Alien extends MovingThing implements Locatable
 {
 	private int x, y, s;
 	private Image image;
 
 	public Alien(int x, int y, int s)
 	{
+		super(x, y);
+
 		this.x = x;
 		this.y = y;
 		this.s = s;
@@ -25,20 +27,29 @@ public class Alien implements Locatable
 		}
 	}
 
-	public void draw( Graphics window )
+	@Override
+	public void setSpeed(int s) {
+		this.s = s;
+	}
+
+	@Override
+	public int getSpeed() {
+		return Math.abs(this.s);
+	}
+
+	public void draw(Graphics window )
 	{
    	window.drawImage(image, getX(), getY(),40,40,null);
 	}
 
-	public void doMove()
+	public void move()
 	{
-		if (this.x + this.s > 750 || this.x + this.s < 0)
+		if (this.x + this.s > 720 || this.x + this.s < 0)
 		{
-			this.y += 15;
 			this.s *= -1;
 		}
-
-		this.x += this.s;
+		if (this.s > 0) this.move("RIGHT");
+		else this.move("LEFT");
 	}
 
 	@Override

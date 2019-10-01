@@ -40,7 +40,7 @@ public class Ship extends MovingThing
 
 	public boolean canShoot()
 	{
-		if (this.stopwatch.elapsedTime() > .75)
+		if (this.stopwatch.elapsedTime() > .25)
 		{
 			this.onShoot();
 			return true;
@@ -54,6 +54,15 @@ public class Ship extends MovingThing
 		this.stopwatch.start();
 	}
 
+	public void checkSpeed(boolean pos)
+	{
+		if (pos)
+			if (this.speed < 0)
+				this.speed *= -1;
+
+		if (this.speed > 0) this.speed *= -1;
+	}
+
 	@Override
 	public void setSpeed(int s)
 	{
@@ -62,7 +71,7 @@ public class Ship extends MovingThing
 
 	@Override
 	public int getSpeed() {
-		return speed;
+		return Math.abs(speed);
 	}
 
 	public void draw(Graphics window)
