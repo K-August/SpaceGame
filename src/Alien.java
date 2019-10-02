@@ -23,7 +23,6 @@ public class Alien extends MovingThing implements Locatable
 		}
 		catch(Exception e)
 		{
-			//feel free to do something here
 		}
 	}
 
@@ -39,7 +38,7 @@ public class Alien extends MovingThing implements Locatable
 
 	public void draw(Graphics window )
 	{
-   	window.drawImage(image, getX(), getY(),40,40,null);
+   	window.drawImage(image, getX(), getY(),80,80,null);
 	}
 
 	public void move()

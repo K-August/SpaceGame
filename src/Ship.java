@@ -76,7 +76,7 @@ public class Ship extends MovingThing
 
 	public void draw(Graphics window)
 	{
-   		window.drawImage(image, getX(), getY(), 80, 80, null);
+   		window.drawImage(image, getX(), getY(), 160, 160, null);
 	}
 
 	@Override

@@ -12,6 +12,8 @@ import javax.swing.Timer;
 
 public class OuterSpace extends JPanel implements KeyListener, ActionListener
 {
+
+    //region Initialization
     private Ship ship;
     private Alien alienOne;
     private Alien alienTwo;
@@ -50,7 +52,9 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         timer.start();
         setVisible(true);
     }
+    // endregion
 
+    //region Painting
     public void actionPerformed(ActionEvent e)
     {
         //NO TOUCHING
@@ -79,19 +83,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         graphToBack.setColor(Color.BLUE);
         graphToBack.drawString("StarFighter ", 25, 50);
 
-        if (aliens.size() == 0 && this.stopwatch == null)
-        {
-            this.stopwatch = new Stopwatch();
-        }
-        if (this.stopwatch != null)
-        {
-            graphToBack.setColor(Color.RED);
-            graphToBack.setFont(new Font("TimesRoman", Font.ITALIC, 50));
-            graphToBack.drawString("You win! ",300, 400);
-
-            if (this.stopwatch.elapsedTime() > 3) System.exit(0);
-        }
-
+        //region Movement Handling
 	if (keys[0])
 	{
 	    if (ship.getSpeed() > 0)
@@ -119,14 +111,18 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         if (ship.canShoot())
             bullets.add(new Ammo(ship.getX() + 25, ship.getY(), ship.getSpeed() * 5));
     }
+	//endregion
+
         ship.draw(graphToBack);
 
+	    // Move the aliens.
         for (Alien alien: aliens)
         {
             alien.move();
             alien.draw(graphToBack);
         }
 
+        // Handle bullets and collisions
 		for (int index = 0; index < bullets.size(); index++)
         {
             Ammo bullet = bullets.get(index);
@@ -137,20 +133,41 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
             for (int j =0; j < aliens.size(); j++)
             {
                 Alien alien = aliens.get(j);
-                if (x <= (alien.getX() + 40) && x >= alien.getX() && y >= alien.getY() && y <= (alien.getY() + 40) || alien.getY() > 1000)
+                if (x <= (alien.getX() + 40) && x >= alien.getX() && y >= alien.getY() && y <= (alien.getY() + 40) || alien.getY() > 1000) // Collider detection
                 {
-                    bullets.remove(bullet);
-                    aliens.remove(alien);
+                    bullets.remove(bullet); // Delete the bullet when it hits an alien
+                    aliens.remove(alien); // Delete the alien when it's killed
                     if (aliens.size() < 5 && random.nextInt(2) == 0) aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
+                    // Random chance to create an alien when one is destroyed.
                 }
             }
+            // Move the bullet up the screen
             bullet.doMove();
             bullet.draw(graphToBack);
         }
 
-        twoDGraph.drawImage(back, null, 0, 0);
+        //region Game End
+        // If there are no aliens and a stop watch isn't created, make one.
+        if (aliens.size() == 0 && this.stopwatch == null)
+        {
+            this.stopwatch = new Stopwatch();
+        }
+        // Wait 3 seconds then close the window.
+        if (this.stopwatch != null)
+        {
+            graphToBack.setColor(Color.RED);
+            graphToBack.setFont(new Font("TimesRoman", Font.ITALIC, 50));
+            graphToBack.drawString("You win! ",300, 400);
 
+            if (this.stopwatch.elapsedTime() > 3) System.exit(0);
+        }
+        //endregion
+
+        twoDGraph.drawImage(back, null, 0, 0);
     }
+    //endregion
+
+    // region Key Listening
 
     public void keyPressed(KeyEvent e)
     {
@@ -205,5 +222,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         } catch (Exception e) {
         }
     }
+
+    // endregion
 }
 

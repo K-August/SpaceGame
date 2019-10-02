@@ -19,7 +19,7 @@ public class Ammo implements Locatable
 
 		try
 		{
-			image = ImageIO.read(new File("bullet.jpg"));
+			image = ImageIO.read(new File("bullet.png"));
 		}
 		catch(Exception e)
 		{
@@ -29,11 +29,11 @@ public class Ammo implements Locatable
 
 	public void draw( Graphics window )
 	{
-		window.drawImage(image, getX(), getY(), 15, 15, null);
+		window.drawImage(image, getX(), getY(), 45, 45, null);
 	}
 
 
-	public void doMove()
+  	public void doMove()
 	{
 		if (this.y + this.s < 0 || this.y + this.s > 600)
 			return;
