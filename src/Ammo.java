@@ -29,7 +29,7 @@ public class Ammo implements Locatable
 
 	public void draw( Graphics window )
 	{
-		window.drawImage(image, getX(), getY(), 45, 45, null);
+		window.drawImage(image, getX(), getY(), 100 , 100, null);
 	}
 
 

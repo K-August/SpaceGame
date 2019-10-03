@@ -133,7 +133,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
             for (int j =0; j < aliens.size(); j++)
             {
                 Alien alien = aliens.get(j);
-                if (x <= (alien.getX() + 40) && x >= alien.getX() && y >= alien.getY() && y <= (alien.getY() + 40) || alien.getY() > 1000) // Collider detection
+                if (x <= (alien.getX() + 80) && x >= alien.getX() - 50 && y >= alien.getY() - 50 && y <= (alien.getY() + 80) || alien.getY() > 1000) // Collider detection
                 {
                     bullets.remove(bullet); // Delete the bullet when it hits an alien
                     aliens.remove(alien); // Delete the alien when it's killed
@@ -142,6 +142,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
                 }
             }
             // Move the bullet up the screen
+            if (bullet.getY() < 0) bullets.remove(bullet);
             bullet.doMove();
             bullet.draw(graphToBack);
         }
