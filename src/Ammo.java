@@ -19,7 +19,7 @@ public class Ammo implements Locatable
 
 		try
 		{
-			image = ImageIO.read(new File("krabbypatty.png"));
+			image = ImageIO.read(new File("src\\Images\\krabbypatty.png"));
 		}
 		catch(Exception e)
 		{

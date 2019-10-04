@@ -30,7 +30,7 @@ public class Ship extends MovingThing
 
 		try
 		{
-			image = ImageIO.read(new File("spongebob.png"));
+			image = ImageIO.read(new File("src\\Images\\spongebob.png"));
 		}
 		catch(Exception e)
 		{
