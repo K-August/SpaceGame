@@ -45,7 +45,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
         ship = new Ship(width / 4, height / 4, 3);
 
-        patty = new Patrick(600, 200);
+        //patty = new Patrick(600, 200);
 
         aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
         aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
@@ -143,7 +143,6 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
                     aliens.remove(alien); // Delete the alien when it's killed
                     if (aliens.size() < 5 && random.nextInt(2) == 0) aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
                     // Random chance to create an alien when one is destroyed.
-                    SoundEffect.play("C:\\Users\\lk185374\\IdeaProjects\\SpaceGame\\src\\Sounds\\spongebob_laugh.wav");
                 }
             }
             // Move the bullet up the screen
@@ -154,15 +153,15 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
         if (keys[5])
         {
-            patty.draw(graphToBack);
+            //patty.draw(graphToBack);
         }
-        patty.move("LEFT");
+        //patty.move("LEFT");
         //region Game End
         // If there are no aliens and a stop watch isn't created, make one.
         if (aliens.size() == 0 && this.stopwatch == null)
         {
+            SoundEffect.play("src\\Sounds\\end.wav");
             this.stopwatch = new Stopwatch();
-            SoundEffect.play("C:\\Users\\lk185374\\IdeaProjects\\SpaceGame\\src\\Sounds\\yeehee.wav");
         }
         // Wait 3 seconds then close the window.
         if (this.stopwatch != null)

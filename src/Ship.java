@@ -30,7 +30,7 @@ public class Ship extends MovingThing
 
 		try
 		{
-			image = ImageIO.read(new File("ship.png"));
+			image = ImageIO.read(new File("spongebob.png"));
 		}
 		catch(Exception e)
 		{
@@ -76,7 +76,7 @@ public class Ship extends MovingThing
 
 	public void draw(Graphics window)
 	{
-   		window.drawImage(image, getX(), getY(), 160, 160, null);
+   		window.drawImage(image, getX(), getY(), 100, 100, null);
 	}
 
 	@Override
