@@ -19,7 +19,7 @@ public class Alien extends MovingThing implements Locatable
 
 		try
 		{
-			image = ImageIO.read(new File("alien.jpg"));
+			image = ImageIO.read(new File("alien.png"));
 		}
 		catch(Exception e)
 		{

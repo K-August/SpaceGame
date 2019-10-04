@@ -1,8 +1,9 @@
+import Sounds.SoundEffect;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import static java.lang.Character.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
     private Ship ship;
     private Alien alienOne;
     private Alien alienTwo;
+    private Patrick patty;
     private int width, height;
 
     private Stopwatch stopwatch;
@@ -37,11 +39,13 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
 
         setBackground(Color.black);
         
-        keys = new boolean[5];
+        keys = new boolean[6];
         width = WIDTH;
         height= HEIGHT;
 
         ship = new Ship(width / 4, height / 4, 3);
+
+        patty = new Patrick(600, 200);
 
         aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
         aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
@@ -111,8 +115,8 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         if (ship.canShoot())
             bullets.add(new Ammo(ship.getX() + 25, ship.getY(), ship.getSpeed() * 5));
     }
-	//endregion
 
+	//endregion
         ship.draw(graphToBack);
 
 	    // Move the aliens.
@@ -139,6 +143,7 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
                     aliens.remove(alien); // Delete the alien when it's killed
                     if (aliens.size() < 5 && random.nextInt(2) == 0) aliens.add(new Alien(random.nextInt(800), random.nextInt(100), 5));
                     // Random chance to create an alien when one is destroyed.
+                    SoundEffect.play("C:\\Users\\lk185374\\IdeaProjects\\SpaceGame\\src\\Sounds\\spongebob_laugh.wav");
                 }
             }
             // Move the bullet up the screen
@@ -147,11 +152,17 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
             bullet.draw(graphToBack);
         }
 
+        if (keys[5])
+        {
+            patty.draw(graphToBack);
+        }
+        patty.move("LEFT");
         //region Game End
         // If there are no aliens and a stop watch isn't created, make one.
         if (aliens.size() == 0 && this.stopwatch == null)
         {
             this.stopwatch = new Stopwatch();
+            SoundEffect.play("C:\\Users\\lk185374\\IdeaProjects\\SpaceGame\\src\\Sounds\\yeehee.wav");
         }
         // Wait 3 seconds then close the window.
         if (this.stopwatch != null)
@@ -187,6 +198,9 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             keys[4] = true;
         }
+        if (e.getKeyCode() == KeyEvent.VK_C) {
+            keys[5] = true;
+        }
         repaint();
     }
 
@@ -206,6 +220,9 @@ public class OuterSpace extends JPanel implements KeyListener, ActionListener
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             keys[4] = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_C) {
+            keys[5] = false;
         }
         repaint();
     }

@@ -25,7 +25,7 @@ public class Galaga extends JFrame
 	public int getWidth() {return WIDTH;}
 	public int getHeight() {return HEIGHT;}
 
-	public static void main( String args[] )
+	public static void main(String[] args)
 	{
 		Galaga run = new Galaga();
 	}
