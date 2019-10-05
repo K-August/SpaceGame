@@ -17,7 +17,7 @@ public class Patrick extends MovingThing
 
         try
         {
-            image = ImageIO.read(new File("patrick.png"));
+            image = ImageIO.read(new File("src\\Images\\patrick.png"));
         }
         catch(Exception ignored)
         {
